@@ -17,7 +17,11 @@ function Dog(name, breed, weight) {
       return age;
     };
     this.bark = function () {
-        console.log(this.name + " сказав Гав!");
+        if (this.weight >= 25){
+            console.log(this.name + " сказав Гав!");
+        } else {
+            console.log(this.name + " сказав Тяф!");
+        }
     };
     this.changeSpeed = function (speedArg) {
         if ((0.5 <= speedArg) && (2 >= speedArg)){
