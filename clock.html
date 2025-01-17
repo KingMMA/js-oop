@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Годинник та Таймер</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        h1 {
+            color: #333;
+        }
+        #clock {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-bottom: 20px;
+        }
+        #timer {
+            font-size: 1.5em;
+            color: #ff4500;
+        }
+        .timer-controls {
+            margin-top: 10px;
+        }
+        button {
+            font-size: 1em;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Годинник та Таймер</h1>
+
+    <div id="clock"></div>
+
+    <div id="timer">00:00</div>
+
+    <div class="timer-controls">
+        <button onclick="startTimer()">Старт</button>
+        <button onclick="resetTimer()">Скинути</button>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            document.getElementById('clock').textContent = hours + ':' + minutes + ':' + seconds;
+        }
+        setInterval(updateClock, 1000);
+
+        let timerInterval;
+        let timerSeconds = 0;
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(function() {
+                timerSeconds++;
+                const minutes = Math.floor(timerSeconds / 60);
+                const seconds = timerSeconds % 60;
+                let minute_msg;
+                let second_msg;
+
+                if (minutes < 10){minute_msg = `0${minutes}`} 
+                else { minute_msg = minutes }
+
+                if (seconds < 10){ second_msg = `0${seconds}` }
+                else { second_msg  = seconds}
+
+                document.getElementById('timer').textContent = minute_msg + ':' + second_msg;
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerSeconds = 0;
+            document.getElementById('timer').textContent = '00:00';
+        }
+    </script>
+
+</body>
+</html>
